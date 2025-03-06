@@ -1,7 +1,7 @@
 const mangayomiSources = [{
     "name": "新新漫画",
     "lang": "zh",
-    "baseUrl": "https://www.77mh.xyz",
+    "baseUrl": "http://www.77mh.xyz",
     "apiUrl": "",
     "iconUrl": "https://www.77mh.xyz/favicon.ico",
     "typeSource": "single",
@@ -70,7 +70,7 @@ const mangayomiSources = [{
       const mangas = [];
       for (const element of elements) {
         const title = element.selectFirst("span a").text;
-        const url = element.selectFirst("span a").attr("href").replace(this.baseUrl, "");
+        const url = element.selectFirst("span a").attr("href");
         const cover = element.selectFirst("img").attr("src");
         mangas.push({
           name: title,
@@ -92,7 +92,7 @@ const mangayomiSources = [{
       const mangas = [];
       for (const element of elements) {
         const title = element.selectFirst("h1 a").text.replace("<em>", "").replace("</em>", "");
-        const url = element.selectFirst("h1 a").attr("href");
+        const url = "/" + element.selectFirst("h1 a").attr("href").split("/").slice(-1)[0];
         const cover = element.selectFirst("img").attr("src");
         mangas.push({
           name: title,
