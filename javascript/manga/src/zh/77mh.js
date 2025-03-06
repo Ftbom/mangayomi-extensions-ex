@@ -70,7 +70,7 @@ const mangayomiSources = [{
       const mangas = [];
       for (const element of elements) {
         const title = element.selectFirst("span a").text;
-        const url = element.selectFirst("span a").attr("href");
+        const url = element.selectFirst("span a").attr("href").replace(this.baseUrl, "");
         const cover = element.selectFirst("img").attr("src");
         mangas.push({
           name: title,
