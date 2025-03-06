@@ -1,7 +1,7 @@
 const mangayomiSources = [{
   "name": "Jable",
   "lang": "zh",
-  "baseUrl": "https://jable.tv",
+  "baseUrl": "https://assets-cdn.jable.tv/assets/icon/favicon.ico",
   "apiUrl": "",
   "iconUrl": "https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-zh/main/javascript/icon/zh.jable.png",
   "typeSource": "single",

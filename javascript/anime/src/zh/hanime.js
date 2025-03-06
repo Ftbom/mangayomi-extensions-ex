@@ -3,7 +3,7 @@ const mangayomiSources = [{
   "lang": "zh",
   "baseUrl": "https://hanime1.me",
   "apiUrl": "",
-  "iconUrl": "https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-zh/main/javascript/icon/zh.hanime.png",
+  "iconUrl": "https://vdownload.hembed.com/image/icon/tab_logo.png?secure=EJYLwnrDlidVi_wFp3DaGw==,4867726124",
   "typeSource": "single",
   "itemType": 1,
   "isNsfw": true,

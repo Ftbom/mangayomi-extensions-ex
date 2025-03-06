@@ -3,21 +3,21 @@
 仅包含NSFW的源，一般的源提交给官方仓库
 
 ## Guide
-just paste them into your:
+仅测试用:
 
 manga repo 
 ```
-https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-zh/refs/heads/main/index.json
+https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-zh/refs/heads/dev/index.json
 ```
 
 anime repo 
 ```
-https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-zh/refs/heads/main/anime_index.json
+https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-zh/refs/heads/dev/anime_index.json
 ```
 
 novel repo 
 ```
-https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-zh/refs/heads/main/novel_index.json
+https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-zh/refs/heads/dev/novel_index.json
 ```
 
 # Contributing
