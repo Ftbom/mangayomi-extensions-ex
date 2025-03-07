@@ -132,6 +132,7 @@ class DefaultExtension extends MProvider {
                 url: element.selectFirst("a").attr("href")
             })
         }
+        chapters.reverse();
         return {
             name: this.stringUTF8(title),
             imageUrl: cover,
