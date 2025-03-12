@@ -6,7 +6,7 @@ const mangayomiSources = [{
     "iconUrl": "https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-zh/main/javascript/icon/zh.quanbenxs.png",
     "typeSource": "single",
     "itemType": 2,
-    "version": "0.0.1",
+    "version": "0.0.15",
     "pkgPath": "novel/src/zh/quanbenxs.js"
 }];
 
@@ -105,11 +105,14 @@ class DefaultExtension extends MProvider {
         const items = [];
         for (let element of elements) {
             const info = element.selectFirst("img");
-            items.push({
+            const item = {
                 name: GBK2Unicode(info.attr("alt")),
                 link: host + "$" + element.selectFirst("a").attr("href").replace(this.baseURL(host), ""),
                 imageUrl: this.baseURL(host) + info.attr("src")
-            })
+            };
+            if (item.name.length > 0) {
+                items.push(item);
+            }
         }
         return {
             list: items,
@@ -131,6 +134,8 @@ class DefaultExtension extends MProvider {
         if (query.length > 0) {
             url = `/search.asp?word=${query}`;
         } else {
+            const preference = new SharedPreferences();
+            const host = preference.get("host");
             const fl1 = filters[0]["values"][filters[0]["state"]]["value"];
             const fl2 = filters[1]["values"][filters[1]["state"]]["value"];
             url = `/${this.WebMap[host].sort[parseInt(fl2)]}.asp?id=${fl1}`;
