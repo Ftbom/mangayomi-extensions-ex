@@ -7,7 +7,7 @@ const mangayomiSources = [{
     "typeSource": "single",
     "itemType": 0,
     "isNsfw": true,
-    "version": "0.0.1",
+    "version": "0.0.15",
     "dateFormat": "",
     "dateFormatLocale": "",
     "pkgPath": "manga/src/zh/wnacg.js"
@@ -68,11 +68,11 @@ class DefaultExtension extends MProvider {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36",
             "Referer": this.source.baseUrl
         };
+        const preference = new SharedPreferences();
         if (cookies) {
-            const preference = new SharedPreferences();
             headers["Cookie"] = `MPIC_bnS5=${preference.get("cookies")}`;
         }
-        const res = await new Client().get(`${this.source.baseUrl}/${url_str}`, headers);
+        const res = await new Client().get(`${preference.get("domain_url")}/${url_str}`, headers);
         return res;
     }
 
@@ -424,6 +424,16 @@ class DefaultExtension extends MProvider {
                 "summary": "用于读取用户收藏的Cookies（MPIC_bnS5）",
                 "value": "",
                 "dialogTitle": "Cookies",
+                "dialogMessage": "",
+            }
+        },
+        {
+            "key": "domain_url",
+            "editTextPreference": {
+                "title": "Url",
+                "summary": "绅士漫画网址",
+                "value": "https://www.wnacg.com",
+                "dialogTitle": "URL",
                 "dialogMessage": "",
             }
         }];
