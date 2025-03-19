@@ -143,9 +143,9 @@ function GBKUrlEncode(str) {
 class DefaultExtension extends MProvider {
     WebMap = {
         "beike": ["beikef", "beikedj", "beikezs", "beikerk"],
-        "ebu": { "url": "http://m.ebuxs.com", "sort": ["ebufl", "ebudj", "ebuzs", "eburk"] },
-        "uugu": { "url": "http://m.uuguxs.com", "sort": ["uggf", "uggdj", "uggzs", "uggrk"] },
-        "agu": { "url": "http://m.aguxs.com", "sort": ["aguclass", "agudj", "aguzs", "agurk"] },
+        "ebu": ["ebufl", "ebudj", "ebuzs", "eburk"],
+        "uugu": ["uggf", "uggdj", "uggzs", "uggrk"],
+        "agu": ["aguclass", "agudj", "aguzs", "agurk"],
         "youmu": ["youmufl", "youmudj", "youmuzs", "youmurk"],
     }
     getHeaders(url) {
@@ -189,10 +189,10 @@ class DefaultExtension extends MProvider {
         };
     }
     async getPopular(page) {
-        return await this.getItems(`/${this.WebMap[this.getKey()].sort[1]}.asp?id=24&page=${page}`);
+        return await this.getItems(`/${this.WebMap[this.getKey()][1]}.asp?id=24&page=${page}`);
     }
     async getLatestUpdates(page) {
-        return await this.getItems(`/${this.WebMap[this.getKey()].sort[0]}.asp?id=24&page=${page}`);
+        return await this.getItems(`/${this.WebMap[this.getKey()][0]}.asp?id=24&page=${page}`);
     }
     async search(query, page, filters) {
         let url = null;
@@ -202,7 +202,7 @@ class DefaultExtension extends MProvider {
         } else {
             const fl1 = filters[0]["values"][filters[0]["state"]]["value"];
             const fl2 = filters[1]["values"][filters[1]["state"]]["value"];
-            url = `/${this.WebMap[this.getKey()].sort[parseInt(fl2)]}.asp?id=${fl1}`;
+            url = `/${this.WebMap[this.getKey()][parseInt(fl2)]}.asp?id=${fl1}`;
         }
         url = url + `&page=${page}`;
         return await this.getItems(url);
