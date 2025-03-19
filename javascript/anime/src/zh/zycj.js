@@ -11,6 +11,20 @@ const mangayomiSources = [{
     "dateFormat": "",
     "dateFormatLocale": "",
     "pkgPath": "anime/src/zh/zycj.js"
+},
+{
+    "name": "test",
+    "lang": "zh",
+    "baseUrl": "",
+    "apiUrl": "",
+    "iconUrl": "https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-zh/main/javascript/icon/zh.zycj.jpg",
+    "typeSource": "single",
+    "itemType": 1,
+    "isNsfw": true,
+    "version": "0.0.1",
+    "dateFormat": "",
+    "dateFormatLocale": "",
+    "pkgPath": "anime/src/zh/zycj.js"
 }];
 
 class DefaultExtension extends MProvider {
