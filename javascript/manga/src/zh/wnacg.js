@@ -7,7 +7,7 @@ const mangayomiSources = [{
     "typeSource": "single",
     "itemType": 0,
     "isNsfw": true,
-    "version": "0.0.15",
+    "version": "0.0.2",
     "dateFormat": "",
     "dateFormatLocale": "",
     "pkgPath": "manga/src/zh/wnacg.js"
@@ -62,17 +62,29 @@ class DefaultExtension extends MProvider {
 
         return timestamp;
     }
+    getBaseUrl() {
+        const preference = new SharedPreferences();
+        var base_url = preference.get("domain_url");
+        if (base_url.length == 0) {
+          return this.source.baseUrl;
+        }
+        if (base_url.endsWith("/")) {
+          return base_url.slice(0, -1);
+        }
+        return base_url;
+    }
 
     async request(url_str, cookies) {
+        const base_url = this.getBaseUrl();
         const headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36",
-            "Referer": this.source.baseUrl
+            "Referer": base_url
         };
         const preference = new SharedPreferences();
         if (cookies) {
             headers["Cookie"] = `MPIC_bnS5=${preference.get("cookies")}`;
         }
-        const res = await new Client().get(`${preference.get("domain_url")}/${url_str}`, headers);
+        const res = await new Client().get(`${base_url}/${url_str}`, headers);
         return res;
     }
 
@@ -134,6 +146,12 @@ class DefaultExtension extends MProvider {
         var url_str;
         var jump = false;
         if (query == "") {
+            if (filters.length == 0) {
+                return {
+                    list: [],
+                    hasNextPage: false
+                };
+            }
             var category;
             var language;
             var jump_page;
@@ -431,8 +449,8 @@ class DefaultExtension extends MProvider {
             "key": "domain_url",
             "editTextPreference": {
                 "title": "Url",
-                "summary": "绅士漫画网址",
-                "value": "https://www.wnacg.com",
+                "summary": "网址",
+                "value": "",
                 "dialogTitle": "URL",
                 "dialogMessage": "",
             }

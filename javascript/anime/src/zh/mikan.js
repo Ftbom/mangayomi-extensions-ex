@@ -7,7 +7,7 @@ const mangayomiSources = [{
   "typeSource": "torrent",
   "itemType": 1,
   "isNsfw": false,
-  "version": "0.0.25",
+  "version": "0.0.3",
   "dateFormat": "",
   "dateFormatLocale": "",
   "pkgPath": "anime/src/zh/mikan.js"
@@ -27,6 +27,9 @@ class DefaultExtension extends MProvider {
   baseURL () {
     const preference = new SharedPreferences();
     var base_url = preference.get("domain_url");
+    if (base_url.length == 0) {
+      return this.source.baseUrl;
+    }
     if (base_url.endsWith("/")) {
       base_url = base_url.slice(0, -1);
     }
@@ -137,11 +140,11 @@ class DefaultExtension extends MProvider {
     return [{
       "key": "domain_url",
       "editTextPreference": {
-          "title": "Url",
-          "summary": "蜜柑计划网址",
-          "value": "https://mikanani.me",
-          "dialogTitle": "URL",
-          "dialogMessage": "",
+        "title": "Url",
+        "summary": "网址",
+        "value": "",
+        "dialogTitle": "URL",
+        "dialogMessage": "",
       }
     },{
       "key": "cookies",

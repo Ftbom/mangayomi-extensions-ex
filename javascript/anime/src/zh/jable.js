@@ -1,13 +1,13 @@
 const mangayomiSources = [{
   "name": "Jable",
   "lang": "zh",
-  "baseUrl": "https://assets-cdn.jable.tv/assets/icon/favicon.ico",
+  "baseUrl": "https://jable.tv",
   "apiUrl": "",
   "iconUrl": "https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-zh/main/javascript/icon/zh.jable.png",
   "typeSource": "single",
   "itemType": 1,
   "isNsfw": true,
-  "version": "0.0.1",
+  "version": "0.0.15",
   "dateFormat": "",
   "dateFormatLocale": "",
   "pkgPath": "anime/src/zh/jable.js",
@@ -15,8 +15,20 @@ const mangayomiSources = [{
 }];
 
 class DefaultExtension extends MProvider {
+  getBaseUrl() {
+    const preference = new SharedPreferences();
+    var base_url = preference.get("domain_url");
+    if (base_url.length == 0) {
+      return this.source.baseUrl;
+    }
+    if (base_url.endsWith("/")) {
+      return base_url.slice(0, -1);
+    }
+    return base_url;
+  }
+
   async getItems(url) {
-    const res = await new Client().get(this.source.baseUrl + url);
+    const res = await new Client().get(this.getBaseUrl() + url);
     const doc = new Document(res.body);
     const elements = doc.select("div.video-img-box");
     const items = [];
@@ -48,7 +60,14 @@ class DefaultExtension extends MProvider {
     if (query != "") {
       return await this.getItems(`/search/${query}/?mode=async&function=get_block&block_id=list_videos_videos_list_search_result&q=${query}&sort_by=&from=${page}`);
     }
-    var categories, sort;
+    if (filters.length == 0) {
+      return {
+        list: [],
+        hasNextPage: false
+      };
+    }
+    let categories = "";
+    let sort = "";
     for (const filter of filters) {
       if (filter["type"] == "categories") {
         categories = filter["values"][filter["state"]]["value"];
@@ -740,6 +759,17 @@ class DefaultExtension extends MProvider {
   }
 
   getSourcePreferences() {
-    throw new Error("getSourcePreferences not implemented");
+    return [
+      {
+        "key": "domain_url",
+        "editTextPreference": {
+          "title": "Url",
+          "summary": "网址",
+          "value": "",
+          "dialogTitle": "URL",
+          "dialogMessage": "",
+        }
+      }
+    ];
   }
 }

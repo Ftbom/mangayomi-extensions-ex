@@ -32,7 +32,7 @@ class DefaultExtension extends MProvider {
         }
         const datas = JSON.parse(text);
         if (datas.status == "login") {
-            return { list: [{ name: "请清除Cookies后，在WebView中登陆", imageUrl: "https://noy.asia/images/noriya/VACUUM-5.webp", link: "" }], hasNextPage: false };
+            return { list: [{ name: "请在WebView中登陆", imageUrl: "https://noy.asia/images/noriya/VACUUM-5.webp", link: "" }], hasNextPage: false };
         }
         const len = datas.len;
         const manga = [];
@@ -68,6 +68,12 @@ class DefaultExtension extends MProvider {
         let url = null;
         let body = null;
         if (query.length == 0) {
+            if (filters.length == 0) {
+                return {
+                    list: [],
+                    hasNextPage: false
+                };
+            }
             if (filters[2].state == 0) {
                 const rankfilter = filters[3].state[0];
                 const sortfilter = filters[3].state[1];
@@ -107,8 +113,12 @@ class DefaultExtension extends MProvider {
                 } 
             }
         } else {
-            const rangefilter = filters[0].state[0];
-            const sortfilter = filters[0].state[1];
+            let rangefilter = "de";
+            let sortfilter = "bid";
+            if (filters.length > 0) {
+                rangefilter = filters[0].state[0];
+                sortfilter = filters[0].state[1];
+            }
             url = "/api/search_v2";
             body = {
                 info: query,

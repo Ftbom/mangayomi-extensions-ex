@@ -143,6 +143,9 @@ class DefaultExtension extends MProvider {
         if (custom.length == 0) {
             return this.source.baseUrl;
         }
+        if (custom.endsWith("/")) {
+            return custom.slice(0, -1);
+        }
         return custom;
     }
     getKey() {
@@ -176,9 +179,12 @@ class DefaultExtension extends MProvider {
         return await this.parseData(`&pg=${page}&h=${h || 24}`);
     }
     async search(query, page, filters) {
-        let category = filters[0].values[filters[0].state].value;
-        if (category != "") {
-            category = "&t=" + category;
+        let category = "";
+        if (filters.length > 0) {
+            category = filters[0].values[filters[0].state].value;
+            if (category != "") {
+                category = "&t=" + category;
+            }
         }
         return await this.parseData(`&wd=${query}${category}&pg=${page}`);
     }
