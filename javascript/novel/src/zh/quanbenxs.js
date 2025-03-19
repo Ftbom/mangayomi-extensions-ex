@@ -1,12 +1,56 @@
 const mangayomiSources = [{
-    "name": "全本小说",
+    "name": "贝壳小说",
     "lang": "zh",
     "baseUrl": "http://m.beikexs.cc",
-    "apiUrl": "",
+    "apiUrl": "beike",
     "iconUrl": "https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-zh/main/javascript/icon/zh.quanbenxs.png",
     "typeSource": "single",
     "itemType": 2,
-    "version": "0.0.2",
+    "version": "0.0.1",
+    "pkgPath": "novel/src/zh/quanbenxs.js"
+},
+{
+    "name": "幽谷小说",
+    "lang": "zh",
+    "baseUrl": "http://m.uuguxs.com",
+    "apiUrl": "uugu",
+    "iconUrl": "https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-zh/main/javascript/icon/zh.quanbenxs.png",
+    "typeSource": "single",
+    "itemType": 2,
+    "version": "0.0.1",
+    "pkgPath": "novel/src/zh/quanbenxs.js"
+},
+{
+    "name": "阿姑小说",
+    "lang": "zh",
+    "baseUrl": "http://m.aguxs.com",
+    "apiUrl": "agu",
+    "iconUrl": "https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-zh/main/javascript/icon/zh.quanbenxs.png",
+    "typeSource": "single",
+    "itemType": 2,
+    "version": "0.0.1",
+    "pkgPath": "novel/src/zh/quanbenxs.js"
+},
+{
+    "name": "异步小说",
+    "lang": "zh",
+    "baseUrl": "http://m.ebuxs.com",
+    "apiUrl": "ebu",
+    "iconUrl": "https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-zh/main/javascript/icon/zh.quanbenxs.png",
+    "typeSource": "single",
+    "itemType": 2,
+    "version": "0.0.1",
+    "pkgPath": "novel/src/zh/quanbenxs.js"
+},
+{
+    "name": "游牧小说",
+    "lang": "zh",
+    "baseUrl": "http://m.youmuxs.com",
+    "apiUrl": "youmu",
+    "iconUrl": "https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-zh/main/javascript/icon/zh.quanbenxs.png",
+    "typeSource": "single",
+    "itemType": 2,
+    "version": "0.0.1",
     "pkgPath": "novel/src/zh/quanbenxs.js"
 }];
 
@@ -98,29 +142,33 @@ function GBKUrlEncode(str) {
 
 class DefaultExtension extends MProvider {
     WebMap = {
-        "beike": { "url": "http://m.beikexs.cc", "sort": ["beikef", "beikedj", "beikezs", "beikerk"] },
-        "hugu": { "url": "http://m.huguxs.com", "sort": ["huguclass", "hugudj", "huguzs", "hugurk"] },
-        "ehu": { "url": "http://m.ehuxs.com", "sort": ["ehufl", "ehudj", "ehuzs", "ehurk"] },
+        "beike": ["beikef", "beikedj", "beikezs", "beikerk"],
         "ebu": { "url": "http://m.ebuxs.com", "sort": ["ebufl", "ebudj", "ebuzs", "eburk"] },
         "uugu": { "url": "http://m.uuguxs.com", "sort": ["uggf", "uggdj", "uggzs", "uggrk"] },
         "agu": { "url": "http://m.aguxs.com", "sort": ["aguclass", "agudj", "aguzs", "agurk"] },
-        "ubu": { "url": "http://m.ubuxs.com", "sort": ["ubufl", "ubudj", "ubuzs", "uburk"] },
-        "aju": { "url": "http://m.ajuxs.com", "sort": ["ajuclass", "ajudj", "ajuzs", "ajurk"] },
-        "youmu": { "url": "http://m.youmuxs.com", "sort": ["youmufl", "youmudj", "youmuzs", "youmurk"] },
+        "youmu": ["youmufl", "youmudj", "youmuzs", "youmurk"],
     }
     getHeaders(url) {
         throw new Error("getHeaders not implemented");
     }
-    baseURL(host) {
-        return this.WebMap[host].url;
+    getKey() {
+        return this.source.apiUrl;
     }
-    async request(url, host) {
-        return await new Client().get(this.baseURL(host) + url, {
+    baseURL() {
+        const preference = new SharedPreferences();
+        const custom = preference.get("domain_url");
+        if (custom.length == 0) {
+            return this.source.baseUrl;
+        }
+        return custom;
+    }
+    async request(url) {
+        return await new Client().get(this.baseURL() + url, {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:136.0) Gecko/20100101 Firefox/136.0"
         });
     }
-    async getItems(url, host) {
-        const res = await this.request(url, host);
+    async getItems(url) {
+        const res = await this.request(url);
         const doc = new Document(res.body);
         const elements = doc.select("div.list_a");
         const items = [];
@@ -128,8 +176,8 @@ class DefaultExtension extends MProvider {
             const info = element.selectFirst("img");
             const item = {
                 name: GBK2Unicode(info.attr("alt")),
-                link: host + "$" + element.selectFirst("a").attr("href").replace(this.baseURL(host), ""),
-                imageUrl: this.baseURL(host) + info.attr("src")
+                link: element.selectFirst("a").attr("href").replace(this.baseURL(), ""),
+                imageUrl: this.baseURL() + info.attr("src")
             };
             if (item.name.length > 0) {
                 items.push(item);
@@ -141,14 +189,10 @@ class DefaultExtension extends MProvider {
         };
     }
     async getPopular(page) {
-        const preference = new SharedPreferences();
-        const host = preference.get("host");
-        return await this.getItems(`/${this.WebMap[host].sort[1]}.asp?id=24&page=${page}`, host);
+        return await this.getItems(`/${this.WebMap[this.getKey()].sort[1]}.asp?id=24&page=${page}`);
     }
     async getLatestUpdates(page) {
-        const preference = new SharedPreferences();
-        const host = preference.get("host");
-        return await this.getItems(`/${this.WebMap[host].sort[0]}.asp?id=24&page=${page}`, host);
+        return await this.getItems(`/${this.WebMap[this.getKey()].sort[0]}.asp?id=24&page=${page}`);
     }
     async search(query, page, filters) {
         let url = null;
@@ -156,23 +200,18 @@ class DefaultExtension extends MProvider {
             query = GBKUrlEncode(query);
             url = `/search.asp?word=${query}`;
         } else {
-            const preference = new SharedPreferences();
-            const host = preference.get("host");
             const fl1 = filters[0]["values"][filters[0]["state"]]["value"];
             const fl2 = filters[1]["values"][filters[1]["state"]]["value"];
-            url = `/${this.WebMap[host].sort[parseInt(fl2)]}.asp?id=${fl1}`;
+            url = `/${this.WebMap[this.getKey()].sort[parseInt(fl2)]}.asp?id=${fl1}`;
         }
         url = url + `&page=${page}`;
-        const preference = new SharedPreferences();
-        const host = preference.get("host");
-        return await this.getItems(url, host);
+        return await this.getItems(url);
     }
     async getDetail(url) {
-        const url_split = url.split("$");
-        const res = await this.request(url_split[1], url_split[0]);
+        const res = await this.request(url);
         const doc = new Document(res.body);
         const title = GBK2Unicode(doc.selectFirst("li.selected a").text);
-        const cover = this.baseURL(url_split[0]) + doc.selectFirst("div.pic img").attr("src");
+        const cover = this.baseURL() + doc.selectFirst("div.pic img").attr("src");
         const description = GBK2Unicode(doc.selectFirst("div.novelinfo").text);
         const infos = doc.select("div.jie span");
         const genre = GBK2Unicode(infos[0].selectFirst("a").text);
@@ -183,7 +222,7 @@ class DefaultExtension extends MProvider {
             const info = element.selectFirst("a");
             chapters.push({
                 name: GBK2Unicode(info.text),
-                url: url_split[0] + "$" + info.attr("href").replace(this.baseURL(url_split[0]), ""),
+                url: info.attr("href").replace(this.baseURL(), ""),
             });
         }
         chapters.reverse();
@@ -197,11 +236,9 @@ class DefaultExtension extends MProvider {
         };
     }
     async getHtmlContent(url) {
-        const url_split = url.split("$");
-        const res = await this.request(url_split[1], url_split[0]);
+        const res = await this.request(url);
         const content = await this.cleanHtmlContent(res.body);
-        const baseurl = this.baseURL(url_split[0]);
-        return content.replaceAll(`<img src="`, `<img style="width:13px;height:13px" src="${baseurl}/`);
+        return content.replaceAll(`<img src="`, `<img style="width:13px;height:13px" src="${this.baseURL()}/`);
     }
     async cleanHtmlContent(html) {
         const doc = new Document(html);
@@ -368,19 +405,17 @@ class DefaultExtension extends MProvider {
         ];
     }
     getSourcePreferences() {
-        return [{
-            "key": "host",
-            "listPreference": {
-                "title": "站点",
-                "summary": "",
-                "valueIndex": 0,
-                "entries": ["贝壳小说", "虎骨小说", "饿虎小说",
-                    "异步小说", "幽谷小说", "阿姑小说", "优步小说",
-                    "阿菊小说", "游牧小说"],
-                "entryValues": ["beike", "hugu", "ehu",
-                    "ebu", "uugu", "agu", "ubu", "aju",
-                    "youmu"],
+        return [
+            {
+                "key": "domain_url",
+                "editTextPreference": {
+                  "title": "Url",
+                  "summary": "网址",
+                  "value": "",
+                  "dialogTitle": "URL",
+                  "dialogMessage": "",
+                }
             }
-        }];
+        ];
     }
 }
