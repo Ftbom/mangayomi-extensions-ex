@@ -78,6 +78,12 @@ class DefaultExtension extends MProvider {
 
     async getFavorites(page) {
         const res = await this.request(`users-users_fav-page-${page}-c-0.html`, true);
+        if (res.body.search("您沒有權限，需要登錄")!=-1) {
+            return {
+              "list": [{"name": "请设置Cookies", "link": "", "imageUrl": "https://wnacg.com/themes/u17/images/loading2.gif"}],
+              "hasNextPage":false
+            };
+        }
         const doc = new Document(res.body);
         const elements = doc.select("div.asTB");
         const mangas = [];

@@ -3,7 +3,7 @@ const mangayomiSources = [{
     "lang": "zh",
     "baseUrl": "http://www.77mh.xyz",
     "apiUrl": "",
-    "iconUrl": "https://www.77mh.xyz/favicon.ico",
+    "iconUrl": "https://raw.githubusercontent.com/kodjodevf/mangayomi-extensions/main/javascript/icon/zh.77mh.png",
     "typeSource": "single",
     "itemType": 0,
     "isNsfw": false,
