@@ -3,10 +3,10 @@ const mangayomiSources = [{
     "lang": "zh",
     "baseUrl": "https://www.gufengmh.com",
     "apiUrl": "",
-    "iconUrl": "https://www.gufengmh.com/favicon.ico",
+    "iconUrl": "https://raw.githubusercontent.com/kodjodevf/mangayomi-extensions/main/javascript/icon/zh.gfmanhua.png",
     "typeSource": "single",
     "itemType": 0,
-    "version": "0.0.15",
+    "version": "0.0.1",
     "pkgPath": "manga/src/zh/gfmanhua.js"
 }];
 
@@ -49,11 +49,8 @@ class DefaultExtension extends MProvider {
     baseURL() {
         const preference = new SharedPreferences();
         var base_url = preference.get("domain_url");
-        if (base_url.length == 0) {
-            return this.source.baseUrl;
-        }
         if (base_url.endsWith("/")) {
-            return base_url.slice(0, -1);
+            base_url = base_url.slice(0, -1);
         }
         return base_url;
     }
@@ -1547,17 +1544,16 @@ class DefaultExtension extends MProvider {
         ];
     }
     getSourcePreferences() {
-        return [
-            {
-                "key": "domain_url",
-                "editTextPreference": {
-                    "title": "Url",
-                    "summary": "网址",
-                    "value": "",
-                    "dialogTitle": "URL",
-                    "dialogMessage": "",
-                }
+        return [{
+            "key": "domain_url",
+            "editTextPreference": {
+                "title": "Url",
+                "summary": "古风漫画网址",
+                "value": "https://www.gufengmh.com",
+                "dialogTitle": "URL",
+                "dialogMessage": "",
             }
+        }
         ];
     }
 }

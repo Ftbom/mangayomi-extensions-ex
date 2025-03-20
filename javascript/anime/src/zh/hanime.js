@@ -7,7 +7,7 @@ const mangayomiSources = [{
   "typeSource": "single",
   "itemType": 1,
   "isNsfw": true,
-  "version": "0.0.15",
+  "version": "0.0.1",
   "dateFormat": "",
   "dateFormatLocale": "",
   "pkgPath": "anime/src/zh/hanime.js",
@@ -27,20 +27,8 @@ class DefaultExtension extends MProvider {
     return timestamp;
   }
 
-  getBaseUrl() {
-    const preference = new SharedPreferences();
-    var base_url = preference.get("domain_url");
-    if (base_url.length == 0) {
-      return this.source.baseUrl;
-    }
-    if (base_url.endsWith("/")) {
-      return base_url.slice(0, -1);
-    }
-    return base_url;
-  }
-
   async getItems(url, type) {
-    const res = await new Client().get(this.getBaseUrl() + url);
+    const res = await new Client().get(this.source.baseUrl + url);
     const doc = new Document(res.body);
     const items = [];
     if (type == 0) {
@@ -1123,17 +1111,6 @@ class DefaultExtension extends MProvider {
     ];
   }
   getSourcePreferences() {
-    return [
-        {
-            "key": "domain_url",
-            "editTextPreference": {
-              "title": "Url",
-              "summary": "网址",
-              "value": "",
-              "dialogTitle": "URL",
-              "dialogMessage": "",
-            }
-        }
-    ];
-}
+    throw new Error("getSourcePreferences not implemented");
+  }
 }

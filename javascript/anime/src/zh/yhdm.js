@@ -7,7 +7,7 @@ const mangayomiSources = [{
   "typeSource": "single",
   "itemType": 1,
   "isNsfw": false,
-  "version": "0.0.25",
+  "version": "0.0.2",
   "dateFormat": "",
   "dateFormatLocale": "",
   "pkgPath": "anime/src/zh/yhdm.js"
@@ -54,9 +54,6 @@ class DefaultExtension extends MProvider {
   getBaseUrl() {
     const preference = new SharedPreferences();
     var base_url = preference.get("domain_url");
-    if (base_url.length == 0) {
-      return this.source.baseUrl;
-    }
     if (base_url.endsWith("/")) {
       return base_url.slice(0, -1);
     }
@@ -92,20 +89,14 @@ class DefaultExtension extends MProvider {
   }
 
   async getLatestUpdates(page) {
-    return await this.getItems(`/${new Date().getFullYear()}/${(page == 1) ? "" : page.toString() + ".html"}`, "div.lpic li", true);
+    return await this.getItems(`/${new Date().getFullYear()}/${(page == 1)? "":page.toString()+".html"}`, "div.lpic li", true);
   }
 
   async search(query, page, filters) {
     if (query) {
       return await this.getItems(`/search/${query}/?page=${page}`, "div.lpic li", false);
     }
-    if (filters.length > 0) {
-      return await this.getItems(filters[0]["values"][filters[0]["state"]]["value"] + ((page == 1) ? "" : page.toString() + ".html"), "div.lpic li", true);
-    }
-    return {
-      list: [],
-      hasNextPage: false
-    };
+    return await this.getItems(filters[0]["values"][filters[0]["state"]]["value"] + ((page == 1) ? "" : page.toString() + ".html"), "div.lpic li", true);
   }
 
   async getDetail(url) {
@@ -153,232 +144,231 @@ class DefaultExtension extends MProvider {
       type_name: "SelectFilter",
       name: "分类",
       values: [{
-        name: "2024",
-        value: "/2024/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "2023",
-        value: "/2023/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "2022",
-        value: "/2022/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "2021",
-        value: "/2021/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "2020",
-        value: "/2020/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "2019",
-        value: "/2019/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "2018",
-        value: "/2018/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "2017",
-        value: "/2017/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "2016",
-        value: "/2016/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "2015",
-        value: "/2015/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "日本",
-        value: "/japan/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "大陆",
-        value: "/china/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "美国",
-        value: "/american/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "英国",
-        value: "/england/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "韩国",
-        value: "/korea/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "日语",
-        value: "/29/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "国语",
-        value: "/30/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "粤语",
-        value: "/31/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "英语",
-        value: "/32/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "韩语",
-        value: "/33/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "方言",
-        value: "/34/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "热血",
-        value: "/66/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "格斗",
-        value: "/64/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "恋爱",
-        value: "/91/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "校园",
-        value: "/70/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "搞笑",
-        value: "/67/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "LOLI",
-        value: "/111/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "神魔",
-        value: "/83/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "机战",
-        value: "/81/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "科幻",
-        value: "/75/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "真人",
-        value: "/74/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "青春",
-        value: "/84/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "魔法",
-        value: "/73/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "美少女",
-        value: "/72/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "神话",
-        value: "/102/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "冒险",
-        value: "/61/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "运动",
-        value: "/69/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "竞技",
-        value: "/62/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "童话",
-        value: "/103/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "励志",
-        value: "/85/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "后宫",
-        value: "/99/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "战争",
-        value: "/80/",
-        type_name: "SelectOption"
-      },
-      {
-        name: "吸血鬼",
-        value: "/119/",
-        type_name: "SelectOption"
-      }
+          name: "2024",
+          value: "/2024/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "2023",
+          value: "/2023/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "2022",
+          value: "/2022/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "2021",
+          value: "/2021/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "2020",
+          value: "/2020/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "2019",
+          value: "/2019/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "2018",
+          value: "/2018/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "2017",
+          value: "/2017/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "2016",
+          value: "/2016/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "2015",
+          value: "/2015/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "日本",
+          value: "/japan/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "大陆",
+          value: "/china/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "美国",
+          value: "/american/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "英国",
+          value: "/england/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "韩国",
+          value: "/korea/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "日语",
+          value: "/29/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "国语",
+          value: "/30/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "粤语",
+          value: "/31/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "英语",
+          value: "/32/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "韩语",
+          value: "/33/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "方言",
+          value: "/34/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "热血",
+          value: "/66/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "格斗",
+          value: "/64/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "恋爱",
+          value: "/91/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "校园",
+          value: "/70/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "搞笑",
+          value: "/67/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "LOLI",
+          value: "/111/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "神魔",
+          value: "/83/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "机战",
+          value: "/81/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "科幻",
+          value: "/75/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "真人",
+          value: "/74/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "青春",
+          value: "/84/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "魔法",
+          value: "/73/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "美少女",
+          value: "/72/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "神话",
+          value: "/102/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "冒险",
+          value: "/61/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "运动",
+          value: "/69/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "竞技",
+          value: "/62/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "童话",
+          value: "/103/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "励志",
+          value: "/85/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "后宫",
+          value: "/99/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "战争",
+          value: "/80/",
+          type_name: "SelectOption"
+        },
+        {
+          name: "吸血鬼",
+          value: "/119/",
+          type_name: "SelectOption"
+        }
       ]
     }];
   }
 
   getSourcePreferences() {
-    return [
-      {
+    return [{
         "key": "domain_url",
         "editTextPreference": {
           "title": "Url",
-          "summary": "网址",
-          "value": "",
+          "summary": "樱花动漫网址",
+          "value": "http://www.iyinghua.com",
           "dialogTitle": "URL",
           "dialogMessage": "",
         }
