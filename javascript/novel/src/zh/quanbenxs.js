@@ -10,17 +10,6 @@ const mangayomiSources = [{
     "pkgPath": "novel/src/zh/quanbenxs.js"
 },
 {
-    "name": "幽谷小说",
-    "lang": "zh",
-    "baseUrl": "http://m.uuguxs.com",
-    "apiUrl": "uugu",
-    "iconUrl": "https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-zh/main/javascript/icon/zh.quanbenxs.png",
-    "typeSource": "single",
-    "itemType": 2,
-    "version": "0.0.1",
-    "pkgPath": "novel/src/zh/quanbenxs.js"
-},
-{
     "name": "阿姑小说",
     "lang": "zh",
     "baseUrl": "http://m.aguxs.com",
@@ -144,7 +133,6 @@ class DefaultExtension extends MProvider {
     WebMap = {
         "beike": ["beikef", "beikedj", "beikezs", "beikerk"],
         "ebu": ["ebufl", "ebudj", "ebuzs", "eburk"],
-        "uugu": ["uggf", "uggdj", "uggzs", "uggrk"],
         "agu": ["aguclass", "agudj", "aguzs", "agurk"],
         "youmu": ["youmufl", "youmudj", "youmuzs", "youmurk"],
     }

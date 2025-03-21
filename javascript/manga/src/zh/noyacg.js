@@ -113,19 +113,26 @@ class DefaultExtension extends MProvider {
                 } 
             }
         } else {
-            let rangefilter = "de";
-            let sortfilter = "bid";
+            let body = null;
             if (filters.length > 0) {
-                rangefilter = filters[0].state[0];
-                sortfilter = filters[0].state[1];
+                const rangefilter = filters[0].state[0];
+                const sortfilter = filters[0].state[1];
+                body = {
+                    info: query,
+                    type: rangefilter.values[rangefilter.state].value,
+                    sort: sortfilter.values[sortfilter.state].value,
+                    page: page.toString()
+                };
+            }
+            else {
+                body = {
+                    info: query,
+                    type: "de",
+                    sort: "bid",
+                    page: page.toString()
+                };
             }
             url = "/api/search_v2";
-            body = {
-                info: query,
-                type: rangefilter.values[rangefilter.state].value,
-                sort: sortfilter.values[sortfilter.state].value,
-                page: page.toString()
-            };
         }
         const res = await new Client().post(this.source.baseUrl + url,
             { Referer: this.source.baseUrl }, body);

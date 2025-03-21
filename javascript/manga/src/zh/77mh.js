@@ -266,7 +266,7 @@ const mangayomiSources = [{
         "editTextPreference": {
           "title": "Url",
           "summary": "网址",
-          "value": "",
+          "value": "http://www.77mh.xyz",
           "dialogTitle": "URL",
           "dialogMessage": "",
         }
