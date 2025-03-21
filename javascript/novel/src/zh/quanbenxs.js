@@ -133,7 +133,6 @@ class DefaultExtension extends MProvider {
     WebMap = {
         "beike": ["beikef", "beikedj", "beikezs", "beikerk"],
         "ebu": ["ebufl", "ebudj", "ebuzs", "eburk"],
-        "uugu": ["uggf", "uggdj", "uggzs", "uggrk"],
         "agu": ["aguclass", "agudj", "aguzs", "agurk"],
         "youmu": ["youmufl", "youmudj", "youmuzs", "youmurk"],
     }
@@ -148,6 +147,9 @@ class DefaultExtension extends MProvider {
         const custom = preference.get("domain_url");
         if (custom.length == 0) {
             return this.source.baseUrl;
+        }
+        if (custom.endsWith("/")) {
+            return custom.slice(0, -1);
         }
         return custom;
     }
@@ -189,6 +191,12 @@ class DefaultExtension extends MProvider {
             query = GBKUrlEncode(query);
             url = `/search.asp?word=${query}`;
         } else {
+            if (filters.length == 0) {
+                return {
+                    list: [],
+                    hasNextPage: false
+                };
+            }
             const fl1 = filters[0]["values"][filters[0]["state"]]["value"];
             const fl2 = filters[1]["values"][filters[1]["state"]]["value"];
             url = `/${this.WebMap[this.getKey()][parseInt(fl2)]}.asp?id=${fl1}`;
