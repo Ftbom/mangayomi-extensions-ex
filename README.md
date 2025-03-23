@@ -1,23 +1,24 @@
-# Mangayomi中文插件
+# Mangayomi Extensions Extra
 
-仅包含NSFW的源，一般的源提交给官方仓库
+Mainly includes NSFW and Chinese extensions, while other extensions are submitted to the official repository.
 
 ## Guide
-仅测试用:
+
+Only for test:
 
 manga repo 
 ```
-https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-zh/refs/heads/dev/index.json
+https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-ex/refs/heads/dev/index.json
 ```
 
 anime repo 
 ```
-https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-zh/refs/heads/dev/anime_index.json
+https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-ex/refs/heads/dev/anime_index.json
 ```
 
 novel repo 
 ```
-https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-zh/refs/heads/dev/novel_index.json
+https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-ex/refs/heads/dev/novel_index.json
 ```
 
 # Contributing

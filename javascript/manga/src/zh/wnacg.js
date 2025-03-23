@@ -3,7 +3,7 @@ const mangayomiSources = [{
     "lang": "zh",
     "baseUrl": "https://www.wnacg.com",
     "apiUrl": "",
-    "iconUrl": "https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-zh/main/javascript/icon/zh.wnacg.png",
+    "iconUrl": "https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-ex/main/javascript/icon/zh.wnacg.png",
     "typeSource": "single",
     "itemType": 0,
     "isNsfw": true,
