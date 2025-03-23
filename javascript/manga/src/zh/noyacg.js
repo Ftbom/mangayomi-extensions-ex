@@ -3,7 +3,7 @@ const mangayomiSources = [{
     "lang": "zh",
     "baseUrl": "https://noy1.top",
     "apiUrl": "",
-    "iconUrl": "https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-zh/main/javascript/icon/zh.noyacg.jpg",
+    "iconUrl": "https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-ex/main/javascript/icon/zh.noyacg.jpg",
     "typeSource": "single",
     "itemType": 0,
     "isNsfw": true,

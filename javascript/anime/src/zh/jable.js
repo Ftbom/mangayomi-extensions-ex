@@ -3,7 +3,7 @@ const mangayomiSources = [{
   "lang": "zh",
   "baseUrl": "https://jable.tv",
   "apiUrl": "",
-  "iconUrl": "https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-zh/main/javascript/icon/zh.jable.png",
+  "iconUrl": "https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-ex/main/javascript/icon/zh.jable.png",
   "typeSource": "single",
   "itemType": 1,
   "isNsfw": true,
