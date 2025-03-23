@@ -109,7 +109,7 @@ class DefaultExtension extends MProvider {
     async getVideoList(url) {
         const res = await new Client().get(url);
         const doc = new Document(res.body);
-        const str = doc.selectFirst("div#player").attr("v-scope").match(/, {([^']*)\)/)[1];
+        const str = doc.selectFirst("div#player").attr("v-scope").match(/, {([^']*)\)/)[1].replaceAll("&quot;", '"');
         const data = JSON.parse("{" + str);
         return [{
             url: data["stream"],
