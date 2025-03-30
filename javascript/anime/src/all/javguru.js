@@ -1,6 +1,6 @@
 const mangayomiSources = [{
     "name": "Njav",
-    "lang": "en",
+    "lang": "all",
     "baseUrl": "https://jav.guru",
     "apiUrl": "",
     "iconUrl": "https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-ex/main/javascript/icon/all.javguru.png",
