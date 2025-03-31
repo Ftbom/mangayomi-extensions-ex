@@ -218,11 +218,10 @@ class DefaultExtension extends MProvider {
         const elements = doc.select("ul.wpp-list li");
         const items = [];
         for (let element of elements) {
-            const info = element.selectFirst("a");
             items.push({
-                name: info.text,
+                name: element.selectFirst("a.wpp-post-title").text,
                 imageUrl: element.selectFirst("img").attr("src"),
-                link: info.attr("href")
+                link: element.selectFirst("a").attr("href")
             });
         }
         return {
@@ -278,6 +277,9 @@ class DefaultExtension extends MProvider {
         for (let name of Object.keys(source_keys)) {
             const start = script.search(`var ${source_keys[name]} = `) + 7 + source_keys[name].length;
             const end = start + script.substring(start, script.length).search("};") + 1;
+            if ((name == "STREAM LU") || (name == "STREAM JK")) {
+                continue;
+            }
             ep.push({
                 name: Servers[name],
                 url: Servers[name] + "||" + url + "||" + this.base64decode(JSON.parse(script.substring(start, end)).iframe_url)
