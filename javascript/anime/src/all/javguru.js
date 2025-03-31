@@ -1,5 +1,5 @@
 const mangayomiSources = [{
-    "name": "Njav",
+    "name": "JavGuru",
     "lang": "all",
     "baseUrl": "https://jav.guru",
     "apiUrl": "",
@@ -220,7 +220,7 @@ class DefaultExtension extends MProvider {
         for (let element of elements) {
             const info = element.selectFirst("a");
             items.push({
-                name: info.attr("title"),
+                name: info.text,
                 imageUrl: element.selectFirst("img").attr("src"),
                 link: info.attr("href")
             });
