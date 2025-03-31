@@ -218,11 +218,10 @@ class DefaultExtension extends MProvider {
         const elements = doc.select("ul.wpp-list li");
         const items = [];
         for (let element of elements) {
-            const info = element.selectFirst("a");
             items.push({
-                name: info.text,
+                name: element.selectFirst("a.wpp-post-title").text,
                 imageUrl: element.selectFirst("img").attr("src"),
-                link: info.attr("href")
+                link: element.selectFirst("a").attr("href")
             });
         }
         return {
