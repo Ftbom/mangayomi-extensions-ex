@@ -277,9 +277,6 @@ class DefaultExtension extends MProvider {
         for (let name of Object.keys(source_keys)) {
             const start = script.search(`var ${source_keys[name]} = `) + 7 + source_keys[name].length;
             const end = start + script.substring(start, script.length).search("};") + 1;
-            if ((name == "STREAM LU") || (name == "STREAM JK")) {
-                continue;
-            }
             ep.push({
                 name: Servers[name],
                 url: Servers[name] + "||" + url + "||" + this.base64decode(JSON.parse(script.substring(start, end)).iframe_url)
