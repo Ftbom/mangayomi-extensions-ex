@@ -1,9 +1,9 @@
 const mangayomiSources = [{
-    "name": "DoujinshiOne",
-    "lang": "zh",
+    "name": "DoujinshiPy",
+    "lang": "all",
     "baseUrl": "http://127.0.0.1:9000",
     "apiUrl": "",
-    "iconUrl": "https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-ex/main/javascript/icon/all.doujinshipy.jpg",
+    "iconUrl": "https://raw.githubusercontent.com/Ftbom/mangayomi-extensions-ex/main/javascript/icon/all.doujinshipy.png",
     "typeSource": "single",
     "itemType": 0,
     "isNsfw": true,
